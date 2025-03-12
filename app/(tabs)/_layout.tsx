@@ -1,46 +1,63 @@
-import { Tabs } from 'expo-router';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { PaperProvider } from 'react-native-paper';
-import HomeHeaderMenu from '@/components/HomeHeaderMenu';
+import { Tabs } from "expo-router";
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { PaperProvider } from "react-native-paper";
+import HomeHeaderMenu from "@/components/HomeHeaderMenu";
 export default function TabLayout() {
-
-  const colorScheme = useColorScheme();
-
-  const userLogged = { name: "Gabryell Leal Rocha", email: "gabryell@unifacisa.com.br" }
+  const userLogged = {
+    name: "Gabryell Leal Rocha",
+    email: "gabryell@unifacisa.com.br",
+  };
   return (
     <PaperProvider>
       <Tabs>
         <Tabs.Screen
           name="home"
           options={{
-            title: 'Home',
+            title: "Home",
             headerTitleStyle: {
-              color: '#0EDFBD',
-              fontWeight: 'bold',
-              fontSize: 24
+              color: "#000",
+              fontWeight: "bold",
+              fontSize: 24,
             },
             headerStyle: {
-              backgroundColor: "#0EDFBD"
+              backgroundColor: "#fb1",
             },
+            headerTitle: "Home",
             headerRight: () => {
-              return (
-                <HomeHeaderMenu userInfo={userLogged} />
-              )
+              return <HomeHeaderMenu userInfo={userLogged} />;
             },
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-            tabBarInactiveTintColor: 'gray',
-            tabBarActiveTintColor: 'green',
+            tabBarIcon: ({ color }) => (
+              <IconSymbol size={28} name="house.fill" color={color} />
+            ),
+            tabBarInactiveTintColor: "#fb1",
+            tabBarActiveTintColor: "green",
           }}
         />
-        {/* < Tabs.Screen
+        <Tabs.Screen
           name="cart"
           options={{
-            title: 'Explore',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+            title: "Cart",
+            headerTitleStyle: {
+              color: "#000",
+              fontWeight: "bold",
+              fontSize: 24,
+            },
+            headerStyle: {
+              backgroundColor: "#fb1",
+            },
+            headerTitle: "Cart",
+            headerRight: () => {
+              return <HomeHeaderMenu userInfo={userLogged} />;
+            },
+            tabBarIcon: ({ color }) => (
+              <IconSymbol size={28} name="paperplane.fill" color={color} />
+            ),
+            tabBarInactiveTintColor: "#fb1",
+            tabBarActiveTintColor: "green",
           }}
-        /> */}
-      </Tabs >
+        />
+      </Tabs>
     </PaperProvider>
   );
 }
