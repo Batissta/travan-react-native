@@ -16,12 +16,12 @@ export default function TabLayout() {
           options={{
             title: "Travan",
             headerTitleStyle: {
-              color: "#000",
+              color: "#fff",
               fontWeight: "bold",
               fontSize: 24,
             },
             headerStyle: {
-              backgroundColor: "#fb1",
+              backgroundColor: "#3a0ca3",
             },
             headerTitle: "Home",
             headerRight: () => {
@@ -37,16 +37,16 @@ export default function TabLayout() {
         <Tabs.Screen
           name="cart"
           options={{
-            title: "Cart",
+            title: "Carrinho",
             headerTitleStyle: {
-              color: "#000",
+              color: "#fff",
               fontWeight: "bold",
               fontSize: 24,
             },
             headerStyle: {
-              backgroundColor: "#fb1",
+              backgroundColor: "#3a0ca3",
             },
-            headerTitle: "Cart",
+            headerTitle: "Carrinho",
             headerRight: () => {
               return <HomeHeaderMenu userInfo={userLogged} />;
             },

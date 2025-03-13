@@ -8,7 +8,7 @@ function Home() {
     <View style={styles.container}>
       <Text>Seja muito bem-vindo à homepage</Text>
       <TouchableOpacity
-             onPress={() => router.push('/carrinho')}
+             onPress={() => router.push('/cart')}
         style={styles.button}
       >
         <Text>Visite o seu carrinho</Text>
