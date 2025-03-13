@@ -14,7 +14,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="home"
           options={{
-            title: "Travan",
+            title: "Home",
             headerTitleStyle: {
               color: "#fff",
               fontWeight: "bold",
@@ -23,7 +23,7 @@ export default function TabLayout() {
             headerStyle: {
               backgroundColor: "#3a0ca3",
             },
-            headerTitle: "Home",
+            headerTitle: "Travan",
             headerRight: () => {
               return <HomeHeaderMenu userInfo={userLogged} />;
             },
