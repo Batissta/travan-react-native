@@ -9,7 +9,7 @@ function Register() {
   const router = useRouter();
 
   return (
-    <LinearGradient 
+    <LinearGradient
       colors={["#1a002a", "#3a0ca3"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
@@ -29,10 +29,10 @@ function Register() {
           style={styles.input}
           placeholderTextColor="black"
         />
-        
+
         <View style={styles.radioContainer}>
-          <TouchableOpacity 
-            style={[styles.radioOption, checked === 'motorista' && styles.radioSelected]} 
+          <TouchableOpacity
+            style={[styles.radioOption, checked === 'motorista' && styles.radioSelected]}
             onPress={() => setChecked('motorista')}
           >
             <RadioButton
@@ -44,8 +44,8 @@ function Register() {
             <Text style={styles.radioLabel}>Motorista</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-            style={[styles.radioOption, checked === 'passageiro' && styles.radioSelected]} 
+          <TouchableOpacity
+            style={[styles.radioOption, checked === 'passageiro' && styles.radioSelected]}
             onPress={() => setChecked('passageiro')}
           >
             <RadioButton
@@ -69,9 +69,9 @@ function Register() {
           style={styles.input}
           placeholderTextColor="black"
         />
-        
+
         <TouchableOpacity style={styles.registerButton} onPress={() => router.replace('/login')}>
-          <Text style={{ color: 'black' }}>Registrar</Text>
+          <Text style={styles.registerButtonText}>Registrar</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -85,50 +85,50 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   formContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    padding: 20,
     borderRadius: 15,
-    width: '90%',
+    width: '80%',
     alignItems: 'center',
   },
   input: {
     backgroundColor: "#FFF",
-    padding: 10,
     borderRadius: 5,
     marginTop: 20,
-    width: '100%',
+    width: '80%',
+    height: '10%',
+    fontSize: 14  ,
   },
   radioContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
+    width: '80%',
     marginTop: 20,
   },
   radioOption: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
-    padding: 10,
     borderRadius: 5,
     width: '45%',
     justifyContent: 'center',
   },
   radioSelected: {
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: 'black',
   },
   radioLabel: {
     color: 'black',
     marginLeft: 5,
-    fontWeight: 'bold',
   },
   registerButton: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#1BD7BF',
     padding: 15,
     borderRadius: 5,
     marginTop: 20,
-    width: '100%',
+    width: '80%',
     alignItems: 'center',
+  },
+  registerButtonText: {
+    color: '#fff',
   },
   title: {
     fontSize: 24,
