@@ -30,8 +30,8 @@ export default function TabLayout() {
             tabBarIcon: ({ color }) => (
               <IconSymbol size={28} name="house.fill" color={color} />
             ),
-            tabBarInactiveTintColor: "#fb1",
-            tabBarActiveTintColor: "green",
+            tabBarInactiveTintColor: "#3a0ca3",
+            tabBarActiveTintColor: "#1BD7BF",
           }}
         />
         <Tabs.Screen
@@ -53,8 +53,8 @@ export default function TabLayout() {
             tabBarIcon: ({ color }) => (
               <IconSymbol size={28} name="paperplane.fill" color={color} />
             ),
-            tabBarInactiveTintColor: "#fb1",
-            tabBarActiveTintColor: "green",
+            tabBarInactiveTintColor: "#3a0ca3",
+            tabBarActiveTintColor: "#1BD7BF",
           }}
         />
       </Tabs>
