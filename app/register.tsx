@@ -10,54 +10,26 @@ function Register() {
   const [email, setEmail] = useState({ value: '', dirty: false });
   const [telefone, setTelefone] = useState('');
   const [senha, setSenha] = useState({ value: '', dirty: false });
-  const [error, setError] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const router = useRouter();
 
-
-
-  const preencha=()=>{
-    if(nome.trim() === '' || email.value.trim() === '' || telefone.trim() === '' || senha.value.trim() === ''){
-      return <Text style={styles.error}>Todos os campos são obrigatorios!</Text>;
-    }
-  }
-  const handleErrorEmail = () => {
-    if (!email.value && email.dirty) {
-      return <Text style={styles.error}>Campo obrigatório</Text>;
-    } else if (!emailRegex.test(email.value) && email.dirty) {
-      return <Text style={styles.error}>Email inválido</Text>;
-    }
-    return null;
-  };
-
-  const handleErrorPassword = () => {
-    if (!senha.value && senha.dirty) {
-      return <Text style={styles.error}>Campo obrigatório</Text>;
-    } else if (senha.value.length < 6 && senha.dirty) {
-      return <Text style={styles.error}>Senha deve ter pelo menos 6 caracteres</Text>;
-    }
-    return null;
-  };
-  const handleErrorNome = () => {
-    if (nome.length < 3) {
-      return <Text style={styles.error}>Nome inválido</Text>;
-    }
-    return null;
-  };
-  const handleErrorTelefone = () => {
-    if (telefone.length < 11) {
-      return <Text style={styles.error}>Telefone inválido</Text>;
-    }
-  }
-
-     
-    
-
   const handleRegister = () => {
+    setFormSubmitted(true); // Pra ativar a exibição dos erros
+
     let hasError = false;
+
+    if (!nome || nome.trim().length < 2) {
+      hasError = true;
+    }
 
     if (!email.value || !emailRegex.test(email.value)) {
       setEmail({ value: email.value, dirty: true });
+      hasError = true;
+    }
+
+    if (!telefone || telefone.trim().length < 11) {
       hasError = true;
     }
 
@@ -71,6 +43,37 @@ function Register() {
     }
   };
 
+ 
+  const handleErrorNome = () => {
+    if (formSubmitted && nome.trim().length < 2) {
+      return <Text style={styles.error}>Nome inválido</Text>;
+    }
+    return null;
+  };
+
+  const handleErrorEmail = () => {
+    if (formSubmitted) {
+      if (!email.value) return <Text style={styles.error}>Campo obrigatório</Text>;
+      if (!emailRegex.test(email.value)) return <Text style={styles.error}>Email inválido</Text>;
+    }
+    return null;
+  };
+
+  const handleErrorTelefone = () => {
+    if (formSubmitted && telefone.trim().length < 11) {
+      return <Text style={styles.error}>Telefone inválido</Text>;
+    }
+    return null;
+  };
+
+  const handleErrorPassword = () => {
+    if (formSubmitted) {
+      if (!senha.value) return <Text style={styles.error}>Campo obrigatório</Text>;
+      if (senha.value.length < 6) return <Text style={styles.error}>Senha deve ter pelo menos 6 caracteres</Text>;
+    }
+    return null;
+  };
+
   return (
     <LinearGradient
       colors={["#1a002a", "#3a0ca3"]}
@@ -80,7 +83,6 @@ function Register() {
     >
       <View style={styles.formContainer}>
         <Text style={styles.title}>Criar conta:</Text>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
         <TextInput
           placeholder="Nome"
@@ -135,8 +137,6 @@ function Register() {
           onChangeText={setTelefone}
           style={styles.input}
           placeholderTextColor="black"
-         
-
         />
         {handleErrorTelefone()}
 
@@ -153,10 +153,6 @@ function Register() {
         <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
           <Text style={styles.registerButtonText}>Registrar</Text>
         </TouchableOpacity>
-        {preencha()}
-        
-    
-
       </View>
     </LinearGradient>
   );
@@ -221,10 +217,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 20,
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: 10,
   },
   error: {
     color: 'red',
