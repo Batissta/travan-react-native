@@ -1,28 +1,22 @@
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 
 function Cart() {
-  const router = useRouter();
-
+  const params = useLocalSearchParams();
   return (
-    
     <View style={styles.container}>
-     
-      
       <View style={styles.viagemContainer}>
-        <Text style={styles.viagemText}>Origem: São Paulo</Text>
-        <Text style={styles.viagemText}>Destino: Rio de Janeiro</Text>
-        <Text style={styles.viagemText}>Valor: R$ 150,00</Text>
+        <Text style={styles.viagemText}>Origem: {params.origem}</Text>
+        <Text style={styles.viagemText}>Destino: {params.destino}</Text>
       </View>
-      
+
       <View style={styles.totalContainer}>
-        <Text style={styles.totalText}>Total: R$ 150,00</Text>
+        <Text style={styles.totalText}>R${params.valor}</Text>
       </View>
-      
-      <TouchableOpacity style={styles.button} onPress={() => router.push("/")}> 
-        <Text style={styles.buttonText}>Finalizar Compra</Text>
+
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Confirmar Viagem</Text>
       </TouchableOpacity>
     </View>
   );
