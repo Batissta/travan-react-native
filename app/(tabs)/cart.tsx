@@ -8,23 +8,23 @@ function Cart() {
   const router = useRouter();
   const [pagamentoConcluido, setPagamentoConcluido] = useState(false);
 
-  const valorOriginal = parseFloat(params.valorOriginal) || 0;
-  const valorDesconto = parseFloat(params.valorDesconto) || 0;
+  const valorOriginal = Number(params.valorOriginal) || 0;
+  const valorDesconto = Number(params.valorDesconto) || 0;
   const valorFinal = valorOriginal - valorDesconto;
 
-  const limparCompra = async () => {
-    await AsyncStorage.removeItem("dadosCompra");
+  const limparCompra = () => {
+    AsyncStorage.removeItem("dadosCompra");
     setPagamentoConcluido(false);
     router.replace("/cart");
   };
 
-  const confirmarViagem = async () => {
+  const confirmarViagem = () => {
     if (!params.origem || !params.destino || valorOriginal <= 0 || valorFinal <= 0) {
       alert("Adicione um item ao carrinho.");
       return;
     }
 
-    await AsyncStorage.removeItem("dadosCompra");
+    AsyncStorage.removeItem("dadosCompra");
     setPagamentoConcluido(true);
   };
 
@@ -60,11 +60,12 @@ function Cart() {
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.button, styles.removeButton]} onPress={limparCompra}>
-            <Text style={styles.buttonText}>Remover Viagem</Text>
+            <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
         </>
-      )}
-    </View>
+      )
+      }
+    </View >
   );
 }
 

@@ -153,6 +153,9 @@ function Register() {
         <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
           <Text style={styles.registerButtonText}>Registrar</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.voltarButton} onPress={() => router.replace("/")}>
+          <Text >Voltar</Text>
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   );
@@ -224,6 +227,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginLeft: '10%',
   },
+  voltarButton: {
+    backgroundColor: '#FFF',
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 20,
+    width: '80%',
+    alignItems: 'center',
+  }
 });
 
 export default Register;
