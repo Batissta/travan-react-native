@@ -8,6 +8,7 @@ type Viagens = {
   destino: string;
   image: string;
   valor: string;
+  valorPromocional?: string;
 };
 
 interface ViagensDisponiveis {
@@ -17,10 +18,16 @@ interface ViagensDisponiveis {
 const TripCard: React.FC<ViagensDisponiveis> = ({ viagens }) => {
   const router = useRouter();
 
+  function entrarEmPromocao(viagem: Viagens): Viagens {
+    if (viagem.valorPromocional) {
+      return { ...viagem, valor: viagem.valorPromocional };
+    }
+    return viagem;
+  }
+
   return (
     <View style={styles.card}>
       <Image source={{ uri: viagens.image }} style={styles.image} />
-
       <Text style={styles.text}>Origem: {viagens.origem}</Text>
       <Text style={styles.text}>Destino: {viagens.destino}</Text>
       <Text style={styles.text}>Valor: {viagens.valor}</Text>
@@ -28,12 +35,14 @@ const TripCard: React.FC<ViagensDisponiveis> = ({ viagens }) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
+          const viagemComDesconto = entrarEmPromocao(viagens);
           router.push({
             pathname: "/(tabs)/cart",
             params: {
-              origem: viagens.origem,
-              destino: viagens.destino,
-              valor: viagens.valor,
+              origem: viagemComDesconto.origem,
+              destino: viagemComDesconto.destino,
+              valorOriginal: viagens.valor,
+              valorDesconto: viagemComDesconto.valor,
             },
           });
         }}
@@ -52,6 +61,7 @@ function Home() {
     image:
       "https://www.viajanet.com.br/blog/wp-content/uploads/2018/08/foto-que-fica-embaixo-da-linha-fina.jpg",
     valor: "150,00",
+    valorPromocional: "",
   };
 
   const viagem2 = {
@@ -61,7 +71,9 @@ function Home() {
     image:
       "https://www.vaipradisney.com/blog/wp-content/uploads/2018/10/CRUZEIRO-DISNEY-ATLANTIS-NADO-GOLFINHO-BAHAMAS13.jpg",
     valor: "10,00",
+    valorPromocional: "5",
   };
+
   const viagem3 = {
     id: 2,
     origem: "Nova Iorque",
@@ -69,6 +81,7 @@ function Home() {
     image:
       "https://www.vaipradisney.com/blog/wp-content/uploads/2018/10/CRUZEIRO-DISNEY-ATLANTIS-NADO-GOLFINHO-BAHAMAS13.jpg",
     valor: "115,00",
+    valorPromocional: "60",
   };
 
   return (

@@ -1,9 +1,11 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { red } from "react-native-reanimated/lib/typescript/Colors";
 
 function Cart() {
   const params = useLocalSearchParams();
+
   return (
     <View style={styles.container}>
       <View style={styles.viagemContainer}>
@@ -12,7 +14,9 @@ function Cart() {
       </View>
 
       <View style={styles.totalContainer}>
-        <Text style={styles.totalText}>R${params.valor}</Text>
+        <Text style={styles.totalText}>Valor Original: R${params.valorOriginal}</Text>
+        <Text style={styles.textAviso}>Você ganhou um desconto na viagem de R${params.valorDesconto}</Text>
+
       </View>
 
       <TouchableOpacity style={styles.button}>
@@ -74,6 +78,10 @@ const styles = StyleSheet.create({
   totalText: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  textAviso: {
+    fontSize: 15,
+    color: "green"
   },
   button: {
     backgroundColor: "#3a0ca3",
