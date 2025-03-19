@@ -1,27 +1,69 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { red } from "react-native-reanimated/lib/typescript/Colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Cart() {
   const params = useLocalSearchParams();
+  const router = useRouter();
+  const [pagamentoConcluido, setPagamentoConcluido] = useState(false);
+
+  const valorOriginal = parseFloat(params.valorOriginal) || 0;
+  const valorDesconto = parseFloat(params.valorDesconto) || 0;
+  const valorFinal = valorOriginal - valorDesconto;
+
+  const limparCompra = async () => {
+    await AsyncStorage.removeItem("dadosCompra");
+    setPagamentoConcluido(false);
+    router.replace("/cart");
+  };
+
+  const confirmarViagem = async () => {
+    if (!params.origem || !params.destino || valorOriginal <= 0 || valorFinal <= 0) {
+      alert("Adicione um item ao carrinho.");
+      return;
+    }
+
+    await AsyncStorage.removeItem("dadosCompra");
+    setPagamentoConcluido(true);
+  };
+
+  const novaViagem = () => {
+    setPagamentoConcluido(false);
+    router.replace("/home");
+  };
 
   return (
     <View style={styles.container}>
-      <View style={styles.viagemContainer}>
-        <Text style={styles.viagemText}>Origem: {params.origem}</Text>
-        <Text style={styles.viagemText}>Destino: {params.destino}</Text>
-      </View>
+      {pagamentoConcluido ? (
+        <>
+          <Text style={styles.pagamentoTexto}>Pagamento concluído</Text>
+          <TouchableOpacity style={styles.button} onPress={novaViagem}>
+            <Text style={styles.buttonText}>Nova Viagem</Text>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <>
+          <View style={styles.viagemContainer}>
+            <Text style={styles.viagemText}>Origem: {params.origem}</Text>
+            <Text style={styles.viagemText}>Destino: {params.destino}</Text>
+          </View>
 
-      <View style={styles.totalContainer}>
-        <Text style={styles.totalText}>Valor Original: R${params.valorOriginal}</Text>
-        <Text style={styles.textAviso}>Você ganhou um desconto na viagem de R${params.valorDesconto}</Text>
+          <View style={styles.totalContainer}>
+            <Text style={styles.totalText}>Valor Original: R${valorOriginal.toFixed(2)}</Text>
+            <Text style={styles.textAviso}>Você ganhou um desconto de R${valorDesconto.toFixed(2)}</Text>
+            <Text style={styles.totalText}>Valor a Pagar: R${valorFinal.toFixed(2)}</Text>
+          </View>
 
-      </View>
+          <TouchableOpacity style={styles.button} onPress={confirmarViagem}>
+            <Text style={styles.buttonText}>Confirmar Viagem</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Confirmar Viagem</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, styles.removeButton]} onPress={limparCompra}>
+            <Text style={styles.buttonText}>Remover Viagem</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 }
@@ -31,23 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: "5%",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    paddingVertical: 10,
-    borderBottomWidth: 2,
-    borderColor: "#ddd",
-    marginBottom: 20,
-  },
-  icon: {
-    marginRight: 10,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
   },
   viagemContainer: {
     backgroundColor: "#f2f2f2",
@@ -81,19 +106,30 @@ const styles = StyleSheet.create({
   },
   textAviso: {
     fontSize: 15,
-    color: "green"
+    color: "green",
   },
   button: {
     backgroundColor: "#3a0ca3",
     padding: 15,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: "#black",
+    borderColor: "black",
+    marginBottom: 10,
+  },
+  removeButton: {
+    backgroundColor: "red",
   },
   buttonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  pagamentoTexto: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "green",
+    textAlign: "center",
+    marginBottom: 20,
   },
 });
 

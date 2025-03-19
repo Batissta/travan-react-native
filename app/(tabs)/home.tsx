@@ -61,7 +61,7 @@ function Home() {
     image:
       "https://www.viajanet.com.br/blog/wp-content/uploads/2018/08/foto-que-fica-embaixo-da-linha-fina.jpg",
     valor: "150,00",
-    valorPromocional: "",
+    valorPromocional: "50",
   };
 
   const viagem2 = {
@@ -70,8 +70,8 @@ function Home() {
     destino: "Campina Grande",
     image:
       "https://www.vaipradisney.com/blog/wp-content/uploads/2018/10/CRUZEIRO-DISNEY-ATLANTIS-NADO-GOLFINHO-BAHAMAS13.jpg",
-    valor: "10,00",
-    valorPromocional: "5",
+    valor: "936,53",
+    valorPromocional: "200,00",
   };
 
   const viagem3 = {
@@ -111,14 +111,15 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flexDirection: "row",
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    alignItems: "flex-start",
+    marginTop: 10,
   },
   card: {
     backgroundColor: "#fff",
     padding: 15,
-    marginHorizontal: 10,
+    margin: 10,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOpacity: 0.2,
@@ -127,6 +128,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     alignItems: "center",
     width: 180,
+    height: 350,
+    justifyContent: "space-between",
   },
   image: {
     width: 160,
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     marginVertical: 5,
+    textAlign: "center",
   },
   button: {
     backgroundColor: "#3a0ca3",
